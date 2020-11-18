@@ -1,11 +1,10 @@
 from django.db import models
 from acetoon_backend.models import Team, Contest
 from django.core.validators import MaxValueValidator, MinValueValidator
-
+from ckeditor.fields import RichTextField
 
 def upload_path(instance, filename):
     return '/'.join(['submissions', str(instance.team.name), filename])
-
 
 class Submission(models.Model):
 
@@ -14,7 +13,7 @@ class Submission(models.Model):
         on_delete=models.CASCADE,
         related_name='team_submissions'
     )
-    feedback = models.TextField(blank=True)
+    feedback = RichTextField(blank=True)
     contest = models.ForeignKey(
         to=Contest,
         on_delete=models.CASCADE,

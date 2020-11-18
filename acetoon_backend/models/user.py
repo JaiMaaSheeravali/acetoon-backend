@@ -2,6 +2,7 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 
+from ckeditor.fields import RichTextField
 
 def upload_path(instance, filename):
     return '/'.join(['profile', str(instance.id), filename])
@@ -23,7 +24,7 @@ class User(AbstractUser):
         max_length=255,
         blank=True,
     )
-    bio = models.TextField(
+    bio = RichTextField(
         blank=True,
     )
     profile_pic = models.ImageField(
@@ -43,7 +44,7 @@ class Organizer(models.Model):
         max_length=12,
     )
     email_id = models.EmailField()
-    address = models.TextField()
+    address = RichTextField()
     is_organizer = models.BooleanField(
         default=False,
     )

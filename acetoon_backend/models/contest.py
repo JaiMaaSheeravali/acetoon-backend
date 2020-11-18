@@ -1,6 +1,6 @@
 from django.db import models
 from acetoon_backend.models.user import Organizer
-
+from ckeditor.fields import RichTextField
 
 class Contest(models.Model):
 
@@ -29,11 +29,11 @@ class Contest(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True,
     )
-    eligibility = models.TextField(
+    eligibility = RichTextField(
         blank=True
     )
-    rules = models.TextField()
-    prizes = models.TextField(
+    rules = RichTextField()
+    prizes = RichTextField(
         blank=True,
     )
 
@@ -51,7 +51,7 @@ class Contest(models.Model):
 
 class Announcement(models.Model):
 
-    text = models.TextField()
+    text = RichTextField()
     timestamp = models.DateTimeField(
         auto_now_add=True
     )
