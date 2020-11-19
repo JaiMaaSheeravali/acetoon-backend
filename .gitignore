@@ -1,0 +1,4 @@
+.idea
+media/
+acetoon/__pycache__/
+acetoon_backend/models/__pycache__/
