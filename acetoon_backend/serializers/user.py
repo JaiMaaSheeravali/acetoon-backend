@@ -9,10 +9,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         read_only_fields = ['username', ]
-        exclude = ['groups', 'user_permissions']
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
+        exclude = ['groups', 'user_permissions',
+                   'is_staff', 'is_superuser', 'is_active',
+                   'password']
 
 
 class UserNavSerializer(serializers.ModelSerializer):
@@ -23,4 +22,3 @@ class UserNavSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'profile_pic')
-

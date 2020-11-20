@@ -47,22 +47,14 @@ class UserCreateViewSet(viewsets.ModelViewSet):
         if request.method == 'PATCH':
             data = self.request.data
 
-            first_name = data['first_name']
-            last_name = data['last_name']
-            age = data['age']
-            gender = data['gender']
-            designation = data['designation']
-            bio = data['bio']
-
             user = User.objects.get(id=self.request.user.id)
-            user.first_name = first_name
-            user.last_name = last_name
-            user.age = age
-            user.gender = gender
-            user.designation = designation
-            user.bio = bio
 
-            user.save()
+            serializer = UserSerializer(user, data=data)
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                print(serializer.errors)
+
             data = 'Update Successfully'
             return Response(
                 data=data,
