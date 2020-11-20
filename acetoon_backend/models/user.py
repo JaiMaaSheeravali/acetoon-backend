@@ -50,6 +50,9 @@ class Organizer(models.Model):
     timestamp = models.DateTimeField(
         auto_now_add=True
     )
+    reason = models.TextField(
+        default='Help Nation'
+    )
 
     def __str__(self):
         """
