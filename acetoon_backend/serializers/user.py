@@ -4,14 +4,15 @@ from acetoon_backend.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     """
-    Serializer for modify and display  profile
+    Serializer for creation and modification of profile
     """
     class Meta:
         model = User
-        read_only_fields = [
-            'username',
-        ]
-        fields = '__all__'
+        read_only_fields = ['username', ]
+        exclude = ['groups', 'user_permissions']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
 
 class UserNavSerializer(serializers.ModelSerializer):
@@ -22,3 +23,4 @@ class UserNavSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'profile_pic')
+
