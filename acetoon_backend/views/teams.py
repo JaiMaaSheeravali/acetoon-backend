@@ -106,12 +106,17 @@ class TeamCreateViewSet(viewsets.ModelViewSet):
             Display teams for a contest
             : requires a GET parameter as contest_id
             """
-            contests_id = self.request.query_params.get('contest_id')
-            contests = Contest.objects.get(id=contests_id)
-            teams = contests.participants.all()
-            serializer = TeamDetailSerializer(teams, many=True)
+            try:
+                contests_id = self.request.query_params.get('contest_id')
+                contests = Contest.objects.get(id=contests_id)
+                teams = contests.participants.all()
+                serializer = TeamDetailSerializer(teams, many=True)
 
-            return Response(
-                data=serializer.data,
-                status=status.HTTP_200_OK
-            )
+                return Response(
+                    data=serializer.data,
+                    status=status.HTTP_200_OK
+                )
+            except:
+                return Response(
+                    status=status.HTTP_404_NOT_FOUND
+                )

@@ -12,6 +12,7 @@ from acetoon_backend.serializers.user import (
 from acetoon_backend.serializers.submission import (
     SubmissionDetailSerializer,
     SubmissionListSerializer,
+    SubmissionCreateSerializer
 )
 from acetoon_backend.serializers.teams import (
     TeamSerializer,
