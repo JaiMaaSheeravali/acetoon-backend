@@ -37,3 +37,14 @@ class ContestRulesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contest
         fields = ('id', 'name', 'rules',)
+
+
+class ContestCreateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for creation of competition
+    """
+
+    class Meta:
+        model = Contest
+        read_only_fields = ['organizer', ]
+        fields = '__all__'
