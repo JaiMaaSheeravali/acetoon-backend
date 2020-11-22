@@ -123,7 +123,7 @@ CORS_ORIGIN_WHITELIST = (
          'http://127.0.0.1:3000',
      )
 
-CORS_ALLOW_CREDENTIALS=True
+CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = False
 
 
@@ -147,3 +147,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Email Settings
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'acetoon.help.info@gmail.com'  # fill the username
+EMAIL_HOST_PASSWORD = 'acetoon123'  # fill the password
+EMAIL_PORT = 587

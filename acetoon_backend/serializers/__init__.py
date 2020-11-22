@@ -7,6 +7,7 @@ from acetoon_backend.serializers.contest import (
 from acetoon_backend.serializers.user import (
     UserNavSerializer,
     UserSerializer,
+    OrganizerSerializer
 )
 from acetoon_backend.serializers.submission import (
     SubmissionDetailSerializer,

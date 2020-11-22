@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from acetoon_backend.models import User
+from acetoon_backend.models import User, Organizer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -22,3 +22,14 @@ class UserNavSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'profile_pic')
+
+
+class OrganizerSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Organizer Creation
+    """
+
+    class Meta:
+        model = Organizer
+        read_only_fields = ('user', 'is_organizer')
+        fields = '__all__'

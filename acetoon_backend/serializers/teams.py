@@ -10,7 +10,8 @@ class TeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = '__all__'
+        read_only_fields = ('owner', 'token')
+        exclude = ('members', )
 
 
 class TeamDetailSerializer(serializers.ModelSerializer):
