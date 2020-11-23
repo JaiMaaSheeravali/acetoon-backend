@@ -32,3 +32,14 @@ class IsOrganizer(permissions.BasePermission):
             return request.user.user.is_organizer
 
         return False
+
+
+class AnnouncementPermission(permissions.BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+
+        if request.method == 'POST':
+            if hasattr(request.user, 'user'):
+                return request.user.user == obj.contest.organizer
+            else:
+                return False

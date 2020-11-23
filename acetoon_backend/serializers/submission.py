@@ -26,3 +26,14 @@ class SubmissionDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Submission
         fields = '__all__'
+
+
+class SubmissionCreateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Detailed Submission
+    """
+
+    class Meta:
+        model = Submission
+        read_only_fields = ('team', 'contest')
+        fields = '__all__'
