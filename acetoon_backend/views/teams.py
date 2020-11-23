@@ -43,7 +43,7 @@ class TeamCreateViewSet(viewsets.ModelViewSet):
         Endpoint to create a team based
         """
         data = self.request.data
-        print(data)
+        # print(data)
         token = str(data['contest']) + str(self.request.user)
         token = hashlib.sha256(token.encode())
         token = token.hexdigest()

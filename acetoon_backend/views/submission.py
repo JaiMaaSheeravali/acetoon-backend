@@ -21,16 +21,16 @@ class SubmissionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
 
         contest_id = self.request.query_params.get('contest_id', None)
-
         user = self.request.user.user
+        queryset = Submission.objects.none()
+
         if contest_id is not None:
             contest = Contest.objects.get(id=contest_id)
             if user.id == contest.organizer.id:
                 queryset = contest.submissions.all()
-            else:
-                queryset = Submission.objects.none()
+
         else:
-            pass
+            queryset = Submission.objects.none()
 
         return queryset
 
@@ -47,13 +47,30 @@ class SubmissionViewSet(viewsets.ModelViewSet):
 
         contest_id = self.request.query_params.get('contest_id', None)
         data = self.request.data
-        token = data['token']
-        team = Team.objects.get(token=token)
+
+        try:
+            contest = Contest.objects.get(id=contest_id)
+
+        except Contest.DoesNotExist:
+            return Response(
+                data='No such Contest Exists',
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            token = data['token']
+            team = Team.objects.get(token=token, contest=contest_id)
+
+        except Team.DoesNotExist:
+            return Response(
+                data='No such Team Exist',
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         serializer = SubmissionCreateSerializer(data=data)
 
         if serializer.is_valid():
-            serializer.save(team=team, contest=contest_id)
+            serializer.save(team=team, contest=contest)
             data = 'Submitted Successfully'
 
             return Response(

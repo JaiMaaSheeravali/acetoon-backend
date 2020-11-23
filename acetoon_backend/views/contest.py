@@ -1,15 +1,16 @@
-from acetoon_backend.models import Contest
+from acetoon_backend.models import Contest, Announcement
 from acetoon_backend.serializers import (
     ContestListSerializer,
     ContestDetailSerializer,
     ContestRulesSerializer,
-    ContestCreateSerializer
+    ContestCreateSerializer,
+    AnnouncementSerializer
 )
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
-from acetoon_backend.permissions import IsOrganizer
+from acetoon_backend.permissions import IsOrganizer, AnnouncementPermission
 from itertools import chain
 
 
@@ -120,3 +121,36 @@ class ContestCreate(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(organizer=self.request.user.user)
 
+
+class AnnouncementViewSet(viewsets.ModelViewSet):
+    """
+    View for Announcements of a Contest
+    """
+
+    http_method_names = ['post', 'get']
+    serializer_class = AnnouncementSerializer
+    permission_classes = [IsAuthenticated & AnnouncementPermission]
+    lookup_field = 'contest'
+    queryset = Announcement.objects.all()
+
+    def get_queryset(self):
+
+        contest_id = self.request.query_params.get('contest_id', None)
+        user = self.request.user.user
+
+        if contest_id is not None:
+            contest = Contest.objects.get(id=contest_id)
+            queryset = contest.announcements.all()
+
+        else:
+            queryset = Announcement.objects.none()
+
+        return queryset
+
+    def perform_create(self, serializer):
+
+        contest_id = self.request.query_params.get('contest_id', None)
+        contest = Contest.objects.get(id=contest_id)
+
+        if contest_id is not None:
+            serializer.save(contest=contest)

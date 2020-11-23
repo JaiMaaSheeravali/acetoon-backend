@@ -2,7 +2,8 @@ from acetoon_backend.serializers.contest import (
     ContestDetailSerializer,
     ContestListSerializer,
     ContestRulesSerializer,
-    ContestCreateSerializer
+    ContestCreateSerializer,
+    AnnouncementSerializer
 )
 from acetoon_backend.serializers.user import (
     UserNavSerializer,

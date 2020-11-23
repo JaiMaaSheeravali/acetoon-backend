@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from acetoon_backend.models import Contest
+from acetoon_backend.models import Contest, Announcement
 
 
 class ContestListSerializer(serializers.ModelSerializer):
@@ -47,4 +47,15 @@ class ContestCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contest
         read_only_fields = ['organizer', ]
+        fields = '__all__'
+
+
+class AnnouncementSerializer(serializers.ModelSerializer):
+    """
+    Serializer for managing Announcements for a Contest
+    """
+
+    class Meta:
+        model = Announcement
+        read_only_fields = ['contest', ]
         fields = '__all__'
