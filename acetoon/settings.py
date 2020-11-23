@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,9 @@ SECRET_KEY = '4zvxe*4-lzo0u*7z-zz0kx--b+aqof4@h^o9q89uem1a28ezk+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['acetoon.herokuapp.com',
+                 '127.0.0.1',
+                 ]
 
 
 # Application definition
@@ -156,3 +159,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'acetoon.help.info@gmail.com'  # fill the username
 EMAIL_HOST_PASSWORD = 'acetoon123'  # fill the password
 EMAIL_PORT = 587
+
+django_heroku.settings(locals())
